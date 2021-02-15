@@ -38,12 +38,7 @@ function setupClickHandlers() {
 	document.addEventListener('click', function (event) {
 		let { target } = event
 
-		let parent = event.target.parentElement
-
 		// Race track form field
-		// if (parent.matches('.card.track')) {
-		// 	handleSelectTrack(target)
-		// }
 		if (target.matches('.card.track') || target.parentNode.matches('.card.track')) {
 			if (target.parentNode.matches('.card.track')) {
 				target = target.parentNode;
@@ -52,9 +47,6 @@ function setupClickHandlers() {
 		}
 
 		// Podracer form field
-		// if (parent.matches('.card.podracer')) {
-		// 	handleSelectPodRacer(target)
-		// }
 		if (target.matches('.card.podracer') || target.parentNode.matches('.card.podracer')) {
 			if (target.parentNode.matches('.card.podracer')) {
 				target = target.parentNode;
@@ -110,7 +102,7 @@ async function handleCreateRace() {
 		renderAt('#race', renderRaceStartView(track_id));
 
 		// TODO - DONE - update the store with the race id
-		store.race_id = race.ID - 1;
+		store.race_id = parseInt(race.ID) - 1;
 
 
 		// The race has been created, now start the countdown
@@ -147,16 +139,16 @@ function runRace(raceID) {
 					renderAt('#race', resultsView(res.positions)) // to render the results view
 					reslove(res) // resolve the promise
 				*/
-				const raceStatus = await getRace(raceID);
-				if (raceStatus === 'in-progress') {
-					renderAt('#leaderBoard', raceProgress(raceStatus.positions));
-				} else if (raceStatus === 'finished') {
-					clearInterval(raceInterval); // to stop the interval from repeating
-					renderAt('#race', resultsView(raceStatus.positions)); // to render the results view
-					reslove(raceStatus); // resolve the promise
+				const raceStatus = await getRace(raceID)
+				if (raceStatus.status === "in-progress") {
+					renderAt('#leaderBoard', raceProgress(raceStatus.positions))
+				} else if (raceStatus.status === "finished") {
+					clearInterval(raceInterval) // to stop the interval from repeating
+					renderAt('#race', resultsView(raceStatus.positions)) // to render the results view
+					resolve(raceStatus) // resolve the promise
 				} else {
-					clearInterval(raceInterval);
-					resolve(raceStatus);
+					clearInterval(raceInterval)
+					resolve(raceStatus)
 				}
 			} catch (err) {
 				console.log("Error with raceInterval:: ", err)
@@ -238,7 +230,7 @@ function handleAccelerate() {
 // Provided code - do not remove
 
 function renderRacerCars(racers) {
-	console.log("renderRacerCars:".racers)
+	console.log("renderRacerCars:", racers)
 	if (!racers.length) {
 		return `
 			<h4>Loading Racers...</4>
