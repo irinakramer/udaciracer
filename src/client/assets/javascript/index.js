@@ -108,17 +108,17 @@ async function handleCreateRace() {
 
 function runRace(raceID) {
 	return new Promise(resolve => {
-		// TODO - use Javascript's built in setInterval method to get race info every 500ms
+		// TODO - DONE - use Javascript's built in setInterval method to get race info every 500ms
 		const raceInterval = setInterval(async () => {
 
 			try {
 				/* 
-					TODO - if the race info status property is "in-progress", update the leaderboard by calling:
+					TODO - DONE - if the race info status property is "in-progress", update the leaderboard by calling:
 					renderAt('#leaderBoard', raceProgress(res.positions))
 				*/
 
 				/* 
-					TODO - if the race info status property is "finished", run the following:
+					TODO - DONE - if the race info status property is "finished", run the following:
 			
 					clearInterval(raceInterval) // to stop the interval from repeating
 					renderAt('#race', resultsView(res.positions)) // to render the results view
@@ -141,7 +141,7 @@ function runRace(raceID) {
 			}
 		}, 500)
 	})
-	// remember to add error handling for the Promise
+	//  - DONE remember to add error handling for the Promise
 }
 
 async function runCountdown() {
@@ -151,16 +151,22 @@ async function runCountdown() {
 		let timer = 3
 
 		return new Promise(resolve => {
-			// TODO - use Javascript's built in setInterval method to count down once per second
+			// TODO - DONE  - use Javascript's built in setInterval method to count down once per second
+			const countdown = setInterval(() => {
+				if (timer !== 0) {
+					// run this DOM manipulation to decrement the countdown for the user
+					document.getElementById('big-numbers').innerHTML = --timer
 
-			// run this DOM manipulation to decrement the countdown for the user
-			document.getElementById('big-numbers').innerHTML = --timer
-
-			// TODO - if the countdown is done, clear the interval, resolve the promise, and return
-
+				} else {
+					// TODO - DONE  - if the countdown is done, clear the interval, resolve the promise, and return
+					clearInterval(countdown);
+					resolve();
+					return;
+				}
+			}, 1000);
 		})
 	} catch (error) {
-		console.log(error);
+		console.log("Error with runCountdown:: ", error);
 	}
 }
 
@@ -176,7 +182,8 @@ function handleSelectPodRacer(target) {
 	// add class selected to current target
 	target.classList.add('selected')
 
-	// TODO - save the selected racer to the store
+	// TODO - DONE  - save the selected racer to the store
+	store.player_id = parseInt(target.id);
 }
 
 function handleSelectTrack(target) {
@@ -191,13 +198,15 @@ function handleSelectTrack(target) {
 	// add class selected to current target
 	target.classList.add('selected')
 
-	// TODO - save the selected track id to the store
+	// TODO - DONE - save the selected track id to the store
+	store.track_id = parseInt(target.id);
 
 }
 
 function handleAccelerate() {
 	console.log("accelerate button clicked")
-	// TODO - Invoke the API call to accelerate
+	// TODO - DONE - Invoke the API call to accelerate
+	accelerate(store.race_id);
 }
 
 // HTML VIEWS ------------------------------------------------
