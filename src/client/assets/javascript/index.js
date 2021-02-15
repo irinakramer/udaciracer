@@ -7,6 +7,23 @@ let store = {
 	race_id: undefined,
 }
 
+const customRacerName = {
+	"Racer 1": "Custom racer 1",
+	"Racer 2": "Custom racer 2",
+	"Racer 3": "Custom racer 3",
+	"Racer 4": "Custom racer 4",
+	"Racer 5": "Custom racer 5"
+}
+
+const customTrackName = {
+	"Track 1": "Custom track 1",
+	"Track 2": "Custom track 2",
+	"Track 3": "Custom track 3",
+	"Track 4": "Custom track 4",
+	"Track 5": "Custom track 5",
+	"Track 6": "Custom track 6"
+}
+
 // We need our javascript to wait until the DOM is loaded
 document.addEventListener("DOMContentLoaded", function () {
 	onPageLoad()
@@ -99,7 +116,8 @@ async function handleCreateRace() {
 		console.log("createRace::", race)
 
 		// render starting UI
-		renderAt('#race', renderRaceStartView(track_id));
+		//renderAt('#race', renderRaceStartView(track_id));
+		renderAt('#race', renderRaceStartView(race.Track, race.Cars));
 
 		// TODO - DONE - update the store with the race id
 		store.race_id = parseInt(race.ID) - 1;
@@ -146,9 +164,6 @@ function runRace(raceID) {
 					clearInterval(raceInterval) // to stop the interval from repeating
 					renderAt('#race', resultsView(raceStatus.positions)) // to render the results view
 					resolve(raceStatus) // resolve the promise
-				} else {
-					clearInterval(raceInterval)
-					resolve(raceStatus)
 				}
 			} catch (err) {
 				console.log("Error with raceInterval:: ", err)
@@ -176,7 +191,6 @@ async function runCountdown() {
 					// TODO - DONE  - if the countdown is done, clear the interval, resolve the promise, and return
 					clearInterval(countdown);
 					resolve();
-					return;
 				}
 			}, 1000);
 		})
@@ -251,10 +265,11 @@ function renderRacerCard(racer) {
 
 	return `
 		<li class="card podracer" id="${id}">
-			<h3>${driver_name}</h3>
-			<p>${top_speed}</p>
-			<p>${acceleration}</p>
-			<p>${handling}</p>
+			<h3>${customRacerName[driver_name]}</h3>
+			<p>Top speed: ${top_speed}</p>
+			<p>Acceleration: ${acceleration}</p>
+			<p>Handling: ${handling}</p>
+			<img class="racerCard" src="/assets/img/Racer_${id}.png" alt="${customRacerName[driver_name]}"/>
 		</li>
 	`
 }
@@ -280,7 +295,8 @@ function renderTrackCard(track) {
 	const { id, name } = track
 	return `
 		<li id="${id}" class="card track">
-			<h3>${name}</h3>
+			<h3>${customTrackName[name]}</h3>
+			
 		</li>
 	`
 }
@@ -326,27 +342,37 @@ function resultsView(positions) {
 }
 
 function raceProgress(positions) {
-	let userPlayer = positions.find(e => e.id === store.player_id)
-	userPlayer.driver_name += " (you)"
+	// let userPlayer = positions.find(e => e.id === store.player_id)
+	// userPlayer.driver_name += " (you)"
 
 	positions = positions.sort((a, b) => (a.segment > b.segment) ? -1 : 1)
 	let count = 1
 
 	const results = positions.map(p => {
-		return `
+		if (p.id == store.player_id) {
+			return `
 			<tr>
 				<td>
-					<h3>${count++} - ${p.driver_name}</h3>
+					<h3>${count++} - ${customRacerName[p.driver_name]} - you</h3>
 				</td>
 			</tr>
 		`
+		} else {
+			return `
+			<tr>
+				<td>
+					<h3>${count++} - ${customRacerName[p.driver_name]}</h3>
+				</td>
+			</tr>
+		`
+		}
 	})
 
 	return `
 		<main>
 			<h3>Leaderboard</h3>
 			<section id="leaderBoard">
-				${results}
+				${results.join(' ')}
 			</section>
 		</main>
 	`
