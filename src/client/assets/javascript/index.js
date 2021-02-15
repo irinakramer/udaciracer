@@ -158,6 +158,7 @@ function runRace(raceID) {
 					reslove(res) // resolve the promise
 				*/
 				const raceStatus = await getRace(raceID)
+				console.log("raceStatus.status: ", raceStatus.status)
 				if (raceStatus.status === "in-progress") {
 					renderAt('#leaderBoard', raceProgress(raceStatus.positions))
 				} else if (raceStatus.status === "finished") {
