@@ -116,7 +116,6 @@ async function handleCreateRace() {
 		console.log("createRace::", race)
 
 		// render starting UI
-		//renderAt('#race', renderRaceStartView(track_id));
 		renderAt('#race', renderRaceStartView(race.Track, race.Cars));
 
 		// TODO - DONE - update the store with the race id
@@ -344,8 +343,6 @@ function resultsView(positions) {
 }
 
 function raceProgress(positions) {
-	// let userPlayer = positions.find(e => e.id === store.player_id)
-	// userPlayer.driver_name += " (you)"
 
 	positions = positions.sort((a, b) => (a.segment > b.segment) ? -1 : 1)
 	let count = 1
