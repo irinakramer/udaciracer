@@ -8,20 +8,20 @@ let store = {
 }
 
 const customRacerName = {
-	"Racer 1": "Custom racer 1",
-	"Racer 2": "Custom racer 2",
-	"Racer 3": "Custom racer 3",
-	"Racer 4": "Custom racer 4",
-	"Racer 5": "Custom racer 5"
+	"Racer 1": "Lightning McQueen",
+	"Racer 2": "Doc Hudson",
+	"Racer 3": "Ramone",
+	"Racer 4": "Sally Carrera",
+	"Racer 5": "Mater"
 }
 
 const customTrackName = {
-	"Track 1": "Custom track 1",
-	"Track 2": "Custom track 2",
-	"Track 3": "Custom track 3",
-	"Track 4": "Custom track 4",
-	"Track 5": "Custom track 5",
-	"Track 6": "Custom track 6"
+	"Track 1": "Bristol Motor Speedway",
+	"Track 2": "Martinswville Speedway",
+	"Track 3": "Los Angeles Intl Speedway",
+	"Track 4": "Rustbelt Raceway",
+	"Track 5": "Tomasville Speedway",
+	"Track 6": "Race Around Radiator Springs"
 }
 
 // We need our javascript to wait until the DOM is loaded
@@ -270,7 +270,7 @@ function renderRacerCard(racer) {
 			<p>Top speed: ${top_speed}</p>
 			<p>Acceleration: ${acceleration}</p>
 			<p>Handling: ${handling}</p>
-			<img class="racerCard" src="/assets/img/Racer_${id}.png" alt="${customRacerName[driver_name]}"/>
+			<img class="racerCard" src="/assets/images/Racer_${id}.jpeg" alt="${customRacerName[driver_name]}"/>
 		</li>
 	`
 }
@@ -310,9 +310,10 @@ function renderCountdown(count) {
 }
 
 function renderRaceStartView(track, racers) {
+	const { name } = track
 	return `
 		<header>
-			<h1>Race: Track ${track}</h1>
+			<h1>Track: ${customTrackName[name]}</h1>
 		</header>
 		<main id="two-columns">
 			<section id="leaderBoard">
