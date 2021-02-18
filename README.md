@@ -1,8 +1,8 @@
-# Welcome to the One and only UdaciRacer Simulation Game
+# UdaciRacer Simulation Game
+
+Project 3 from the Udacity Intermediate Javascript Nanodegree program.
 
 ## Project Introduction
-
-Here is a partially built-out game that races cars—your job is to complete it! Throughout the game logic, you will find _"TODO"_ comments that must be completed in order for the game to work. You are going to use the asynchronous skills you gained in the course to fill in the blanks in this game.
 
 The game mechanics are this: you select a player and track, the game begins and you accelerate your racer by clicking an acceleration button. As you accelerate so do the other players and the leaderboard live-updates as players change position on the track. The final view is a results page displaying the players' rankings.
 
@@ -14,13 +14,6 @@ The game has three main views:
 
 3. The race results view
 
-## Starter Code
-
-We have supplied you with the following:
-
-1. An API. The API is provided in the form of a binary held in the bin folder. You never need to open the binary file, as there are no edits you can make to it. Your work will be 100% in the front end.
-
-2. HTML Views. The focus of this course is not UI development or styling practice, so we have already provided you with pieces of UI, all you have to do is call them at the right times.
 
 ## Getting Started
 
@@ -53,9 +46,6 @@ If you still run into issues running the API server on your machine, you can run
 
 First, run your preference of `npm install && npm start` or `yarn && yarn start` at the root of this project. Then you should be able to access http://localhost:3000.
 
-## Project Requirements
-
-This starter code base has directions for you in `src/client/assets/javascript/index.js`. There you will be directed to use certain asynchronous methods to achieve tasks. You will know you're making progress as you can play through more and more of the game.
 
 ### API Calls
 
@@ -104,4 +94,7 @@ Accelerate a car
 
 - Returns nothing
 
-To complete the race logic, find all the TODO tags in index.js and read the instructions.
+## Demo
+
+![alt text](https://github.com/irinakramer/udaciracer/raw/main/src/client/assets/images/udaciracer_screenshot.png "Udaciracer game screenshot")
+
