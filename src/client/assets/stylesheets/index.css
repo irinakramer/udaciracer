@@ -23,6 +23,7 @@ body {
 header {
   background-image: url('../images/open-uri20150608-27674-1xu04d9_92cbe411.webp');
   background-size: cover;
+  box-shadow:inset 0 0 0 2000px rgba(255, 0, 150, 0.3);
   background-repeat: no-repeat;
   background-position: center;
   height: 100vh;
